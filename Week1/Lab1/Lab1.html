@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Task 1</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="lab1_files/libs/clipboard/clipboard.min.js"></script>
+<script src="lab1_files/libs/quarto-html/quarto.js"></script>
+<script src="lab1_files/libs/quarto-html/popper.min.js"></script>
+<script src="lab1_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="lab1_files/libs/quarto-html/anchor.min.js"></script>
+<link href="lab1_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="lab1_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="lab1_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="lab1_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="lab1_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Task 1</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell" data-execution_count="55">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> ggplot, geom_point, aes, geom_boxplot,geom_violin, geom_histogram, geom_point, scale_x_log10, scale_size_area, scale_size_continuous, scale_fill_manual, theme, scale_y_continuous, scale_x_continuous, labs, scale_color_manual, annotate, scale_y_log10, geom_density, facet_wrap</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine.options <span class="im">import</span> figure_size</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="part-1" class="level3">
+<h3 class="anchored" data-anchor-id="part-1">Part 1</h3>
+<p>Aesthetics:</p>
+<ul>
+<li>position (x/y)</li>
+<li>size</li>
+<li>color</li>
+<li>annotation</li>
+</ul>
+<p>Variables:</p>
+<ul>
+<li>position x: income</li>
+<li>position y: life expectancy</li>
+<li>size: population</li>
+<li>color: world region</li>
+<li>annotation: year</li>
+</ul>
+</section>
+<section id="parts-2-3" class="level3">
+<h3 class="anchored" data-anchor-id="parts-2-3">Parts 2 &amp; 3</h3>
+<div class="cell" data-outputid="0f4bc08b-b036-455f-cf7c-bfb25da1be86" data-execution_count="56">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>q1 <span class="op">=</span> pd.read_csv(<span class="vs">r"C:\Users\eevee\OneDrive\Desktop\MLClass\Week1\Lab1\q1data.csv"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>q1.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="56">
+
+  <div id="df-909c4938-0601-4c0a-a199-e70a82727b51" class="colab-df-container">
+    <div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">income</th>
+<th data-quarto-table-cell-role="th">life_exp</th>
+<th data-quarto-table-cell-role="th">population</th>
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">country</th>
+<th data-quarto-table-cell-role="th">four_regions</th>
+<th data-quarto-table-cell-role="th">six_regions</th>
+<th data-quarto-table-cell-role="th">eight_regions</th>
+<th data-quarto-table-cell-role="th">world_bank_region</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1910.0</td>
+<td>61.0</td>
+<td>29200000.0</td>
+<td>2010</td>
+<td>Afghanistan</td>
+<td>asia</td>
+<td>south_asia</td>
+<td>asia_west</td>
+<td>South Asia</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>11100.0</td>
+<td>78.1</td>
+<td>2950000.0</td>
+<td>2010</td>
+<td>Albania</td>
+<td>europe</td>
+<td>europe_central_asia</td>
+<td>europe_east</td>
+<td>Europe &amp; Central Asia</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>11100.0</td>
+<td>74.7</td>
+<td>36000000.0</td>
+<td>2010</td>
+<td>Algeria</td>
+<td>africa</td>
+<td>middle_east_north_africa</td>
+<td>africa_north</td>
+<td>Middle East &amp; North Africa</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>46900.0</td>
+<td>81.9</td>
+<td>84500.0</td>
+<td>2010</td>
+<td>Andorra</td>
+<td>europe</td>
+<td>europe_central_asia</td>
+<td>europe_west</td>
+<td>Europe &amp; Central Asia</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>7680.0</td>
+<td>60.8</td>
+<td>23400000.0</td>
+<td>2010</td>
+<td>Angola</td>
+<td>africa</td>
+<td>sub_saharan_africa</td>
+<td>africa_sub_saharan</td>
+<td>Sub-Saharan Africa</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-909c4938-0601-4c0a-a199-e70a82727b51')" title="Convert this dataframe to an interactive table." style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-909c4938-0601-4c0a-a199-e70a82727b51 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-909c4938-0601-4c0a-a199-e70a82727b51');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+<div id="df-dcb1c00b-82f9-4c5b-8a5c-f19215fddb88">
+  <button class="colab-df-quickchart" onclick="quickchart('df-dcb1c00b-82f9-4c5b-8a5c-f19215fddb88')" title="Suggest charts." style="display:none;">
+
+<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 0 24 24" width="24px">
+    <g>
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"></path>
+    </g>
+</svg>
+  </button>
+
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+
+  <script>
+    async function quickchart(key) {
+      const quickchartButtonEl =
+        document.querySelector('#' + key + ' button');
+      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+      quickchartButtonEl.classList.add('colab-df-spinner');
+      try {
+        const charts = await google.colab.kernel.invokeFunction(
+            'suggestCharts', [key], {});
+      } catch (error) {
+        console.error('Error during call to suggestCharts:', error);
+      }
+      quickchartButtonEl.classList.remove('colab-df-spinner');
+      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+    }
+    (() => {
+      let quickchartButtonEl =
+        document.querySelector('#df-dcb1c00b-82f9-4c5b-8a5c-f19215fddb88 button');
+      quickchartButtonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+    })();
+  </script>
+</div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="cell" data-execution_count="57">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>q1 <span class="op">=</span> q1.dropna(subset<span class="op">=</span>[<span class="st">'four_regions'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-outputid="6a9c5d53-be5c-45ce-d426-f73d2f3b6f6d" data-execution_count="58">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> (ggplot(q1, aes(x<span class="op">=</span><span class="st">'income'</span>, y<span class="op">=</span><span class="st">'life_exp'</span>, fill<span class="op">=</span><span class="st">'four_regions'</span>, size<span class="op">=</span><span class="st">'population'</span>))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>     <span class="op">+</span> annotate(<span class="st">"text"</span>, x<span class="op">=</span><span class="dv">12000</span>, y<span class="op">=</span><span class="dv">55</span>, label<span class="op">=</span><span class="st">"2010"</span>, size<span class="op">=</span><span class="dv">75</span>, color<span class="op">=</span><span class="st">"gray"</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>     <span class="op">+</span> annotate(<span class="st">"text"</span>, x<span class="op">=</span><span class="dv">45000</span>, y<span class="op">=</span><span class="dv">30</span>, label<span class="op">=</span><span class="st">"per person (GDP/capita, PPP$ inflation-adjusted)"</span>, size<span class="op">=</span><span class="dv">5</span>, color<span class="op">=</span><span class="st">"dimgray"</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>     <span class="op">+</span> annotate(<span class="st">"text"</span>, x<span class="op">=</span><span class="dv">500</span>, y<span class="op">=</span><span class="dv">79</span>, label<span class="op">=</span><span class="st">"years"</span>, size<span class="op">=</span><span class="dv">6</span>, color<span class="op">=</span><span class="st">"dimgray"</span>, alpha<span class="op">=</span><span class="fl">0.7</span>, angle<span class="op">=</span><span class="dv">90</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>     <span class="op">+</span> annotate(<span class="st">"text"</span>, x<span class="op">=</span><span class="dv">1300</span>, y<span class="op">=</span><span class="dv">87</span>, label<span class="op">=</span><span class="st">"Income Level 1"</span>, size<span class="op">=</span><span class="dv">8</span>, color<span class="op">=</span><span class="st">"dimgray"</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>     <span class="op">+</span> annotate(<span class="st">"text"</span>, x<span class="op">=</span><span class="dv">2700</span>, y<span class="op">=</span><span class="dv">90</span>, label<span class="op">=</span><span class="st">"."</span>, size<span class="op">=</span><span class="dv">40</span>, color<span class="op">=</span><span class="st">"dimgray"</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>     <span class="op">+</span> annotate(<span class="st">"text"</span>, x<span class="op">=</span><span class="dv">4300</span>, y<span class="op">=</span><span class="dv">87</span>, label<span class="op">=</span><span class="st">"Level 2"</span>, size<span class="op">=</span><span class="dv">8</span>, color<span class="op">=</span><span class="st">"dimgray"</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>     <span class="op">+</span> annotate(<span class="st">"text"</span>, x<span class="op">=</span><span class="dv">7000</span>, y<span class="op">=</span><span class="dv">90</span>, label<span class="op">=</span><span class="st">"."</span>, size<span class="op">=</span><span class="dv">40</span>, color<span class="op">=</span><span class="st">"dimgray"</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>     <span class="op">+</span> annotate(<span class="st">"text"</span>, x<span class="op">=</span><span class="dv">12000</span>, y<span class="op">=</span><span class="dv">87</span>, label<span class="op">=</span><span class="st">"Level 3"</span>, size<span class="op">=</span><span class="dv">8</span>, color<span class="op">=</span><span class="st">"dimgray"</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>     <span class="op">+</span> annotate(<span class="st">"text"</span>, x<span class="op">=</span><span class="dv">23000</span>, y<span class="op">=</span><span class="dv">90</span>, label<span class="op">=</span><span class="st">"."</span>, size<span class="op">=</span><span class="dv">40</span>, color<span class="op">=</span><span class="st">"dimgray"</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>     <span class="op">+</span> annotate(<span class="st">"text"</span>, x<span class="op">=</span><span class="dv">50000</span>, y<span class="op">=</span><span class="dv">87</span>, label<span class="op">=</span><span class="st">"Level 4"</span>, size<span class="op">=</span><span class="dv">8</span>, color<span class="op">=</span><span class="st">"dimgray"</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>     <span class="op">+</span> geom_point(color<span class="op">=</span><span class="st">'black'</span>, stroke<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>     <span class="op">+</span> scale_x_log10(breaks<span class="op">=</span>[<span class="dv">500</span>,<span class="dv">1000</span>,<span class="dv">2000</span>,<span class="dv">4000</span>,<span class="dv">8000</span>,<span class="dv">16000</span>,<span class="dv">32000</span>,<span class="dv">64000</span>,<span class="dv">128000</span>])</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>     <span class="op">+</span> scale_y_continuous(limits<span class="op">=</span>(<span class="dv">30</span>, <span class="va">None</span>))</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>     <span class="op">+</span> scale_size_area(max_size<span class="op">=</span><span class="dv">10</span>, breaks<span class="op">=</span>[<span class="dv">100000000</span>, <span class="dv">250000000</span>, <span class="dv">500000000</span>, <span class="dv">750000000</span>, <span class="dv">1000000000</span>])</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>     <span class="op">+</span> scale_fill_manual(values<span class="op">=</span>{</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"asia"</span>: <span class="st">"hotpink"</span>,</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"europe"</span>: <span class="st">"gold"</span>,</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"africa"</span>: <span class="st">"aqua"</span>,</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"americas"</span>: <span class="st">"limegreen"</span>})</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>     <span class="op">+</span> theme(aspect_ratio<span class="op">=</span><span class="dv">9</span><span class="op">/</span><span class="dv">15</span>)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>     <span class="op">+</span>labs(y<span class="op">=</span><span class="st">'Life Expectancy'</span>, x<span class="op">=</span><span class="st">'Income'</span>))</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/usr/local/lib/python3.10/dist-packages/plotnine/layer.py:364: PlotnineWarning:
+
+geom_point : Removed 2 rows containing missing values.
+</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="lab1_files/figure-html/cell-5-output-2.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="58">
+<pre><code>&lt;Figure Size: (640 x 480)&gt;</code></pre>
+</div>
+</div>
+<p>citation:</p>
+<ul>
+<li>https://www.geeksforgeeks.org/use-different-colors-shapes-for-scatterplot-with-two-groups-in-r/</li>
+<li>https://www.statology.org/geom_point-fill/</li>
+<li>https://www.statology.org/color-by-factor-ggplot2/</li>
+<li>https://www.tutorialspoint.com/how-to-change-the-aspect-ratio-of-a-plot-in-ggplot2-in-r</li>
+<li>https://www.statology.org/ggplot2-scale_y_continuous/</li>
+<li>https://www.statology.org/ggplot2-scale_x_continuous/#:~:text=You%20can%20use%20the%20scale_x_continuous,%2C%20limits%2C%20…)</li>
+<li>https://environmentalcomputing.net/graphics/ggplot/ggplot-labels/#:~:text=Changing%20axis%20labels,line%20of%20basic%20ggplot%20code.&amp;text=Note%3A%20You%20can%20also%20use,which%20is%20equivalent%20to%20ggtitle%20.</li>
+<li>https://ggplot2.tidyverse.org/reference/annotate.html</li>
+</ul>
+</section>
+<section id="part-4" class="level3">
+<h3 class="anchored" data-anchor-id="part-4">Part 4:</h3>
+<div class="cell" data-outputid="84c2ad1c-d2d0-4007-8cb2-53cff5fbca22" data-execution_count="59">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>plot1 <span class="op">=</span> (ggplot(q1, aes(x<span class="op">=</span><span class="st">'four_regions'</span>, y<span class="op">=</span><span class="st">'income'</span>, fill<span class="op">=</span><span class="st">'four_regions'</span>))</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>         <span class="op">+</span> geom_violin(show_legend<span class="op">=</span><span class="va">False</span>)) <span class="co">#</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>plot1.draw()</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="59">
+<p><img src="lab1_files/figure-html/cell-6-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-outputid="7f7ac550-a257-4cd5-97f3-c62cd47bbce2" data-execution_count="60">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>plot1 <span class="op">=</span> (ggplot(q1, aes(x<span class="op">=</span><span class="st">'four_regions'</span>, y<span class="op">=</span><span class="st">'population'</span>, fill<span class="op">=</span><span class="st">'four_regions'</span>))</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>         <span class="op">+</span> geom_violin(show_legend<span class="op">=</span><span class="va">False</span>)) <span class="co">#</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>plot1.draw()</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/usr/local/lib/python3.10/dist-packages/plotnine/layer.py:284: PlotnineWarning:
+
+stat_ydensity : Removed 2 rows containing non-finite values.
+</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="60">
+<p><img src="lab1_files/figure-html/cell-7-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-outputid="0a1ae47e-be07-4482-8266-488f008dfd37" data-execution_count="61">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>plot1 <span class="op">=</span> (ggplot(q1, aes(x<span class="op">=</span><span class="st">'four_regions'</span>, y<span class="op">=</span><span class="st">'life_exp'</span>, fill<span class="op">=</span><span class="st">'four_regions'</span>))</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>         <span class="op">+</span> geom_violin(show_legend<span class="op">=</span><span class="va">False</span>)) <span class="co">#</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>plot1.draw()</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="61">
+<p><img src="lab1_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Violin plots are really good ways to visualize the distribution of a variable amongst different groups. It is very obvious what’s going on. However, it is nice in the scatter plot that you can see the interaction of all of the variables. That is hard to accomplish with many other geometries.</p>
+<p>citations:</p>
+<ul>
+<li>https://www.statology.org/seaborn-subplots/</li>
+<li>https://python-graph-gallery.com/53-control-color-of-seaborn-violinplot/</li>
+<li>https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.tight_layout.html</li>
+</ul>
+</section>
+<section id="task-2" class="level1">
+<h1>Task 2</h1>
+<section id="part-1-1" class="level3">
+<h3 class="anchored" data-anchor-id="part-1-1">Part 1</h3>
+<p>Aesthetics:</p>
+<ul>
+<li>position (x/y)</li>
+<li>size</li>
+<li>color</li>
+<li>annotation</li>
+</ul>
+<p>Variables:</p>
+<ul>
+<li>position x: exports (% of GDP)</li>
+<li>position y: imports (% of GDP)</li>
+<li>size: Energy Use</li>
+<li>color: world region</li>
+<li>annotation: year</li>
+</ul>
+</section>
+<section id="parts-2-3-1" class="level3">
+<h3 class="anchored" data-anchor-id="parts-2-3-1">Parts 2 &amp; 3</h3>
+<div class="cell" data-outputid="f560fda3-0539-48fc-8797-35b2c26d33a3" data-execution_count="62">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>q2 <span class="op">=</span> pd.read_csv(<span class="vs">r"C:\Users\eevee\OneDrive\Desktop\MLClass\Week1\Lab1\q2data.csv"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>q2.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="62">
+
+  <div id="df-ac03c85a-cf6a-4249-9c4e-41fabb747598" class="colab-df-container">
+    <div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">imports</th>
+<th data-quarto-table-cell-role="th">exports</th>
+<th data-quarto-table-cell-role="th">energy</th>
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">country</th>
+<th data-quarto-table-cell-role="th">four_regions</th>
+<th data-quarto-table-cell-role="th">six_regions</th>
+<th data-quarto-table-cell-role="th">eight_regions</th>
+<th data-quarto-table-cell-role="th">world_bank_region</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>1997</td>
+<td>Afghanistan</td>
+<td>asia</td>
+<td>south_asia</td>
+<td>asia_west</td>
+<td>South Asia</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>36.7</td>
+<td>11.5</td>
+<td>427</td>
+<td>1997</td>
+<td>Albania</td>
+<td>europe</td>
+<td>europe_central_asia</td>
+<td>europe_east</td>
+<td>Europe &amp; Central Asia</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>22.5</td>
+<td>22.6</td>
+<td>825</td>
+<td>1997</td>
+<td>Algeria</td>
+<td>africa</td>
+<td>middle_east_north_africa</td>
+<td>africa_north</td>
+<td>Middle East &amp; North Africa</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>1997</td>
+<td>American Samoa</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>434</td>
+<td>1997</td>
+<td>Angola</td>
+<td>africa</td>
+<td>sub_saharan_africa</td>
+<td>africa_sub_saharan</td>
+<td>Sub-Saharan Africa</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-ac03c85a-cf6a-4249-9c4e-41fabb747598')" title="Convert this dataframe to an interactive table." style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-ac03c85a-cf6a-4249-9c4e-41fabb747598 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-ac03c85a-cf6a-4249-9c4e-41fabb747598');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+<div id="df-80f85e22-39d0-4149-b4d3-b1000a77782e">
+  <button class="colab-df-quickchart" onclick="quickchart('df-80f85e22-39d0-4149-b4d3-b1000a77782e')" title="Suggest charts." style="display:none;">
+
+<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 0 24 24" width="24px">
+    <g>
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"></path>
+    </g>
+</svg>
+  </button>
+
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+
+  <script>
+    async function quickchart(key) {
+      const quickchartButtonEl =
+        document.querySelector('#' + key + ' button');
+      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+      quickchartButtonEl.classList.add('colab-df-spinner');
+      try {
+        const charts = await google.colab.kernel.invokeFunction(
+            'suggestCharts', [key], {});
+      } catch (error) {
+        console.error('Error during call to suggestCharts:', error);
+      }
+      quickchartButtonEl.classList.remove('colab-df-spinner');
+      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+    }
+    (() => {
+      let quickchartButtonEl =
+        document.querySelector('#df-80f85e22-39d0-4149-b4d3-b1000a77782e button');
+      quickchartButtonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+    })();
+  </script>
+</div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="cell" data-execution_count="63">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>q2[<span class="st">'energy'</span>] <span class="op">=</span> q2[<span class="st">'energy'</span>].astype(<span class="bu">str</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> convert_string_to_number(s):</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> s[<span class="op">-</span><span class="dv">1</span>] <span class="op">==</span> <span class="st">'k'</span>:</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">float</span>(s[:<span class="op">-</span><span class="dv">1</span>]) <span class="op">*</span> <span class="fl">1e3</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">float</span>(s)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>q2[<span class="st">'energy'</span>] <span class="op">=</span> q2[<span class="st">'energy'</span>].<span class="bu">apply</span>(convert_string_to_number)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>^ with help from ChatGPT</p>
+<div class="cell" data-execution_count="64">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>q2[<span class="st">'energy'</span>] <span class="op">=</span> q2[<span class="st">'energy'</span>].astype(<span class="bu">float</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="65">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>q2 <span class="op">=</span> q2.dropna(subset<span class="op">=</span>[<span class="st">'four_regions'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-outputid="ba6ec381-7bab-4493-b20e-72ec285a6d5e" data-execution_count="66">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> (ggplot(q2, aes(x<span class="op">=</span><span class="st">'exports'</span>, y<span class="op">=</span><span class="st">'imports'</span>, fill<span class="op">=</span><span class="st">'four_regions'</span>, size<span class="op">=</span><span class="st">'energy'</span>))</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>     <span class="op">+</span> annotate(<span class="st">"text"</span>, x<span class="op">=</span><span class="dv">100</span>, y<span class="op">=</span><span class="dv">200</span>, label<span class="op">=</span><span class="st">'1997'</span>,size<span class="op">=</span><span class="dv">75</span>, color<span class="op">=</span><span class="st">'gray'</span>,alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>     <span class="op">+</span> geom_point(color<span class="op">=</span><span class="st">'black'</span>, stroke<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>     <span class="op">+</span> scale_fill_manual(values<span class="op">=</span>{</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"asia"</span>: <span class="st">"hotpink"</span>,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"europe"</span>: <span class="st">"gold"</span>,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"africa"</span>: <span class="st">"aqua"</span>,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"americas"</span>: <span class="st">"limegreen"</span>})</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>     <span class="op">+</span> scale_x_continuous(limits<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">200</span>))</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>     <span class="op">+</span> scale_y_continuous(limits<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">400</span>))</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>     <span class="op">+</span> theme(aspect_ratio<span class="op">=</span><span class="dv">9</span><span class="op">/</span><span class="dv">18</span>)</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>     <span class="op">+</span> labs(y<span class="op">=</span><span class="st">'Exports(</span><span class="sc">% o</span><span class="st">f GDP)'</span>, x<span class="op">=</span><span class="st">'Imports(</span><span class="sc">% o</span><span class="st">f GDP)'</span>))</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/usr/local/lib/python3.10/dist-packages/plotnine/layer.py:364: PlotnineWarning:
+
+geom_point : Removed 55 rows containing missing values.
+</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="lab1_files/figure-html/cell-13-output-2.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="66">
+<pre><code>&lt;Figure Size: (640 x 480)&gt;</code></pre>
+</div>
+</div>
+<p>ciation: similar to Task 1</p>
+</section>
+<section id="part-4-1" class="level3">
+<h3 class="anchored" data-anchor-id="part-4-1">Part 4</h3>
+<div class="cell" data-outputid="85161582-8792-4dbb-c5dc-4bf53f2e158f" data-execution_count="67">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>plot1 <span class="op">=</span> (ggplot(q2, aes(x<span class="op">=</span><span class="st">'four_regions'</span>, y<span class="op">=</span><span class="st">'energy'</span>, fill<span class="op">=</span><span class="st">'four_regions'</span>))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>         <span class="op">+</span> geom_boxplot())</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>plot1.draw()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/usr/local/lib/python3.10/dist-packages/plotnine/layer.py:284: PlotnineWarning:
+
+stat_boxplot : Removed 51 rows containing non-finite values.
+</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="67">
+<p><img src="lab1_files/figure-html/cell-14-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-outputid="00d4a160-1093-4bd4-e47d-51062ae9e7ff" data-execution_count="68">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>plot1 <span class="op">=</span> (ggplot(q2, aes(x<span class="op">=</span><span class="st">'four_regions'</span>, y<span class="op">=</span><span class="st">'imports'</span>, fill<span class="op">=</span><span class="st">'four_regions'</span>))</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>         <span class="op">+</span> geom_boxplot())</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>plot1.draw()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/usr/local/lib/python3.10/dist-packages/plotnine/layer.py:284: PlotnineWarning:
+
+stat_boxplot : Removed 19 rows containing non-finite values.
+</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="68">
+<p><img src="lab1_files/figure-html/cell-15-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-outputid="588aed0b-da19-4896-9235-5d27f3a13dc6" data-execution_count="69">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>plot1 <span class="op">=</span> (ggplot(q2, aes(x<span class="op">=</span><span class="st">'four_regions'</span>, y<span class="op">=</span><span class="st">'exports'</span>, fill<span class="op">=</span><span class="st">'four_regions'</span>))</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>         <span class="op">+</span> geom_boxplot())</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>plot1.draw()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/usr/local/lib/python3.10/dist-packages/plotnine/layer.py:284: PlotnineWarning:
+
+stat_boxplot : Removed 19 rows containing non-finite values.
+</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="69">
+<p><img src="lab1_files/figure-html/cell-16-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Using box plots, you can visualize the energy, imports, and exports by each region next to eachother. However, it is challenging to see the interaction between variables like energy and import. On the other hand, you can clearly see the distribution of the individual variables based on the region.</p>
+<p>citations:</p>
+<ul>
+<li>https://python-graph-gallery.com/30-basic-boxplot-with-seaborn/</li>
+<li>https://www.statology.org/seaborn-subplots/</li>
+</ul>
+</section>
+</section>
+<section id="task-3" class="level1">
+<h1>Task 3</h1>
+<section id="part-1-2" class="level3">
+<h3 class="anchored" data-anchor-id="part-1-2">Part 1</h3>
+<p>Aesthetics:</p>
+<ul>
+<li>position (x/y)</li>
+<li>size</li>
+<li>color</li>
+<li>annotation</li>
+</ul>
+<p>Variables:</p>
+<ul>
+<li>position x: individuals using the internet (% of population)</li>
+<li>position y: GPD/capita</li>
+<li>size: Income</li>
+<li>color: world region</li>
+<li>annotation: year</li>
+</ul>
+</section>
+<section id="parts-23" class="level3">
+<h3 class="anchored" data-anchor-id="parts-23">Parts 2&amp;3</h3>
+<div class="cell" data-outputid="1da88df8-8892-42b4-c449-c7328a102b3e" data-execution_count="70">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>q3 <span class="op">=</span> pd.read_csv(<span class="vs">r"C:\Users\eevee\OneDrive\Desktop\MLClass\Week1\Lab1\q3data.csv"</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>q3.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="70">
+
+  <div id="df-09e063ee-98dd-4018-a10f-3abc9e22e889" class="colab-df-container">
+    <div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">internet_users</th>
+<th data-quarto-table-cell-role="th">gdp</th>
+<th data-quarto-table-cell-role="th">income</th>
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">country</th>
+<th data-quarto-table-cell-role="th">four_regions</th>
+<th data-quarto-table-cell-role="th">six_regions</th>
+<th data-quarto-table-cell-role="th">eight_regions</th>
+<th data-quarto-table-cell-role="th">world_bank_region</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>0.00456</td>
+<td>330.0</td>
+<td>1190.0</td>
+<td>2001</td>
+<td>Afghanistan</td>
+<td>asia</td>
+<td>south_asia</td>
+<td>asia_west</td>
+<td>South Asia</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>0.39000</td>
+<td>2570.0</td>
+<td>6780.0</td>
+<td>2001</td>
+<td>Albania</td>
+<td>europe</td>
+<td>europe_central_asia</td>
+<td>europe_east</td>
+<td>Europe &amp; Central Asia</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>1.59000</td>
+<td>3770.0</td>
+<td>9230.0</td>
+<td>2001</td>
+<td>Algeria</td>
+<td>africa</td>
+<td>middle_east_north_africa</td>
+<td>africa_north</td>
+<td>Middle East &amp; North Africa</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>NaN</td>
+<td>10500.0</td>
+<td>NaN</td>
+<td>2001</td>
+<td>American Samoa</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>11.30000</td>
+<td>42600.0</td>
+<td>35600.0</td>
+<td>2001</td>
+<td>Andorra</td>
+<td>europe</td>
+<td>europe_central_asia</td>
+<td>europe_west</td>
+<td>Europe &amp; Central Asia</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-09e063ee-98dd-4018-a10f-3abc9e22e889')" title="Convert this dataframe to an interactive table." style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-09e063ee-98dd-4018-a10f-3abc9e22e889 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-09e063ee-98dd-4018-a10f-3abc9e22e889');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+<div id="df-230962d4-edbf-48d8-9573-60a913a1a0be">
+  <button class="colab-df-quickchart" onclick="quickchart('df-230962d4-edbf-48d8-9573-60a913a1a0be')" title="Suggest charts." style="display:none;">
+
+<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 0 24 24" width="24px">
+    <g>
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"></path>
+    </g>
+</svg>
+  </button>
+
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+
+  <script>
+    async function quickchart(key) {
+      const quickchartButtonEl =
+        document.querySelector('#' + key + ' button');
+      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+      quickchartButtonEl.classList.add('colab-df-spinner');
+      try {
+        const charts = await google.colab.kernel.invokeFunction(
+            'suggestCharts', [key], {});
+      } catch (error) {
+        console.error('Error during call to suggestCharts:', error);
+      }
+      quickchartButtonEl.classList.remove('colab-df-spinner');
+      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+    }
+    (() => {
+      let quickchartButtonEl =
+        document.querySelector('#df-230962d4-edbf-48d8-9573-60a913a1a0be button');
+      quickchartButtonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+    })();
+  </script>
+</div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="cell" data-execution_count="71">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>q3 <span class="op">=</span> q3.dropna(subset<span class="op">=</span>[<span class="st">'four_regions'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-outputid="5eeb5743-8e81-4c86-a431-ea4cc88e5133" data-execution_count="72">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> (ggplot(q3, aes(x<span class="op">=</span><span class="st">'internet_users'</span>, y<span class="op">=</span><span class="st">'gdp'</span>, fill<span class="op">=</span><span class="st">'four_regions'</span>, size<span class="op">=</span><span class="st">'income'</span>))</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>     <span class="op">+</span> annotate(<span class="st">"text"</span>, x<span class="op">=</span><span class="dv">50</span>, y<span class="op">=</span><span class="dv">5000</span>, label<span class="op">=</span><span class="st">'2001'</span>,size<span class="op">=</span><span class="dv">75</span>, color<span class="op">=</span><span class="st">'gray'</span>,alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>     <span class="op">+</span> geom_point(color<span class="op">=</span><span class="st">'black'</span>, stroke<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>     <span class="op">+</span> scale_fill_manual(values<span class="op">=</span>{</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"asia"</span>: <span class="st">"hotpink"</span>,</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"europe"</span>: <span class="st">"gold"</span>,</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"africa"</span>: <span class="st">"aqua"</span>,</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"americas"</span>: <span class="st">"limegreen"</span>})</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>     <span class="op">+</span> scale_x_continuous(limits<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">100</span>))</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>     <span class="op">+</span> scale_y_log10(breaks<span class="op">=</span>[<span class="dv">200</span>,<span class="dv">500</span>,<span class="dv">1000</span>,<span class="dv">2000</span>,<span class="dv">5000</span>,<span class="dv">10000</span>,<span class="dv">20000</span>,<span class="dv">50000</span>,<span class="dv">100000</span>])</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>     <span class="op">+</span> theme(aspect_ratio<span class="op">=</span><span class="dv">9</span><span class="op">/</span><span class="dv">18</span>)</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>     <span class="op">+</span> labs(y<span class="op">=</span><span class="st">'GDP/Capita'</span>, x<span class="op">=</span><span class="st">'Individuals Using the Internet'</span>))</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/usr/local/lib/python3.10/dist-packages/plotnine/layer.py:364: PlotnineWarning:
+
+geom_point : Removed 12 rows containing missing values.
+</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="lab1_files/figure-html/cell-19-output-2.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="72">
+<pre><code>&lt;Figure Size: (640 x 480)&gt;</code></pre>
+</div>
+</div>
+<p>citation: similar to task 1</p>
+</section>
+<section id="part-4-2" class="level3">
+<h3 class="anchored" data-anchor-id="part-4-2">Part 4</h3>
+<div class="cell" data-outputid="9fa9e51f-991f-4a73-f16e-3d6f9838f82a" data-execution_count="73">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>plot1 <span class="op">=</span> (ggplot(q3, aes(x<span class="op">=</span><span class="st">'gdp'</span>, color<span class="op">=</span><span class="st">'four_regions'</span>, fill<span class="op">=</span><span class="st">'four_regions'</span>))</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>         <span class="op">+</span> geom_density(alpha<span class="op">=</span><span class="fl">0.1</span>))</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>plot1.draw()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/usr/local/lib/python3.10/dist-packages/plotnine/layer.py:284: PlotnineWarning:
+
+stat_density : Removed 7 rows containing non-finite values.
+</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="73">
+<p><img src="lab1_files/figure-html/cell-20-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-outputid="5ebaa83a-da69-4905-96a4-440ff3cb89ac" data-execution_count="74">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>plot2 <span class="op">=</span> (ggplot(q3, aes(x<span class="op">=</span><span class="st">'income'</span>, color<span class="op">=</span><span class="st">'four_regions'</span>, fill<span class="op">=</span><span class="st">'four_regions'</span>))</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>         <span class="op">+</span> geom_density(alpha<span class="op">=</span><span class="fl">0.1</span>))</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>plot2.draw()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/usr/local/lib/python3.10/dist-packages/plotnine/layer.py:284: PlotnineWarning:
+
+stat_density : Removed 1 rows containing non-finite values.
+</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="74">
+<p><img src="lab1_files/figure-html/cell-21-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-outputid="b9e1e009-b94c-4290-df7b-297ea18c5875" data-execution_count="75">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>plot3 <span class="op">=</span> (ggplot(q3, aes(x<span class="op">=</span><span class="st">'internet_users'</span>, color<span class="op">=</span><span class="st">'four_regions'</span>, fill<span class="op">=</span><span class="st">'four_regions'</span>))</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>         <span class="op">+</span> geom_density(alpha<span class="op">=</span><span class="fl">0.1</span>))</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>plot3.draw()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/usr/local/lib/python3.10/dist-packages/plotnine/layer.py:284: PlotnineWarning:
+
+stat_density : Removed 7 rows containing non-finite values.
+</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="75">
+<p><img src="lab1_files/figure-html/cell-22-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p>citation:</p>
+<ul>
+<li>https://plotnine.readthedocs.io/en/stable/generated/plotnine.facets.facet_wrap.html</li>
+</ul>
+<p>This plot is called a density plot. I find it helpful in that it is aesthetically pleasing, and it makes it a lot clearer that Africa has a really high density at the lowest end of the spectrum for each variable. On the other hand, it is harder to compare the interactions between the numerical variables.</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
